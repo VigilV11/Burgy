@@ -9,6 +9,7 @@ const BurgerImageContainer = styled.div`
   margin: auto;
   display: block;
   overflow: auto;
+  text-align: center;
 
   /* Laptop screens */
   @media (min-width: 1000px) and (min-height: 700px) {
@@ -29,26 +30,24 @@ const BurgerImageContainer = styled.div`
   }
 `;
 
-function Burger({ cheeseCount, meatCount, saladCount, baconCount }) {
-  let cheeseItems = [];
-  let meatItems = [];
-  let saladItems = [];
-  let baconItems = [];
-  for (let count = 0; count < cheeseCount; count++)
-    cheeseItems.push(<BurgerIngredient type='cheese' key={nanoid()} />);
-  for (let count = 0; count < meatCount; count++)
-    meatItems.push(<BurgerIngredient type='meat' key={nanoid()} />);
-  for (let count = 0; count < saladCount; count++)
-    saladItems.push(<BurgerIngredient type='salad' key={nanoid()} />);
-  for (let count = 0; count < baconCount; count++)
-    baconItems.push(<BurgerIngredient type='bacon' key={nanoid()} />);
+function Burger({ ingredientCount }) {
+  // Get the keys (which are ingredient types) from the ingredientCount object - this will be an array because of Object.keys()
+  // Then map each ingredient to its own array. This array contains the total number of elements of the ingredient. It is then mapped to the component BurgerIngredient.
+  // .fill(0) is used as a dummy and fills the newly created array with 0's. This is required since we are using the Array() constructor to form arrays.
+  // Finally this two dimensional array ([[ingredient1_type1], [ingredient1_type2]]), etc is flattened
+  const allIngredients = Object.keys(ingredientCount)
+    .map((ingredient) =>
+      Array(ingredientCount[ingredient])
+        .fill(0)
+        .map(() => <BurgerIngredient type={ingredient} key={nanoid()} />)
+    )
+    .flat();
+
   return (
     <BurgerImageContainer>
       <BurgerIngredient type='bread-top' />
-      {cheeseItems}
-      {meatItems}
-      {saladItems}
-      {baconItems}
+      {allIngredients}
+      {!allIngredients.length && <p>Please add some ingredients!</p>}
       <BurgerIngredient type='bread-bottom' />
     </BurgerImageContainer>
   );

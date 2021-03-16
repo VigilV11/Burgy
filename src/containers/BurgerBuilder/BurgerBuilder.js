@@ -1,86 +1,59 @@
 import React, { useReducer } from 'react';
-import styled from 'styled-components';
+
 import Burger from '../../components/Burger/Burger';
+import BuildControls from '../../components/BuildControls/BuildControls';
+import BurgerCost from '../../components/BurgerCost/BurgerCost';
 
-const BurgerControlBox = styled.div`
-  width: 80%;
-  /* height: 30%; */
-  margin: auto;
-  margin-top: 3%;
-  background-color: lightseagreen;
-`;
-
-const IngedientBox = styled.div`
-  width: 40%;
-  margin: auto;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-`;
-
-const IngredientLabel = styled.h3`
-  display: inline-block;
-  margin-left: 3%;
-  margin-right: 5%;
-  width: 80px;
-`;
-
-const Button = styled.button`
-  width: 30px;
-  height: 20px;
-  display: inline-block;
-  /* text-align: center; */
-  /* margin: 2%; */
-  /* padding: 2%; */
-`;
+const ALL_INGREDIENT_TYPES = ['cheese', 'meat', 'salad', 'bacon'];
+const INGREDIENT_COST = {
+  cheese: 0.2,
+  meat: 1.1,
+  salad: 0.4,
+  bacon: 0.8,
+};
 
 function BurgerBuilder() {
+  const intitialState = ALL_INGREDIENT_TYPES.reduce(
+    (obj, item) => ({ ...obj, [item]: 0 }),
+    {}
+  ); // Creates the object for the initialState: { cheese: 0, meat: 0, salad: 0, bacon: 0 };
+
   function reducer(state, action) {
-    switch (action) {
+    switch (action.type) {
       case 'add':
-        return state + 1;
+        return {
+          ...state,
+          [action.ingredient]: state[action.ingredient] + 1,
+        };
+
       case 'del':
-        return state > 0 ? state - 1 : 0;
+        return state[action.ingredient] > 0
+          ? {
+              ...state,
+              [action.ingredient]: state[action.ingredient] - 1,
+            }
+          : state;
+
       default:
         return state;
     }
   }
 
-  const [cheeseCount, cheeseDispatch] = useReducer(reducer, 0);
-  const [meatCount, meatDispatch] = useReducer(reducer, 0);
-  const [saladCount, saladDispatch] = useReducer(reducer, 0);
-  const [baconCount, baconDispatch] = useReducer(reducer, 0);
+  const [ingredientCount, dispatch] = useReducer(reducer, intitialState);
+
+  const cost = Object.keys(ingredientCount).reduce(
+    (acc, el) => (acc += ingredientCount[el] * INGREDIENT_COST[el]),
+    0
+  );
 
   return (
     <>
-      <Burger
-        cheeseCount={cheeseCount}
-        meatCount={meatCount}
-        saladCount={saladCount}
-        baconCount={baconCount}
+      <Burger ingredientCount={ingredientCount} />
+      <BurgerCost cost={cost} />
+      <BuildControls
+        allIngredientTypes={ALL_INGREDIENT_TYPES}
+        dispatch={dispatch}
       />
-      <BurgerControlBox>
-        <IngedientBox>
-          <IngredientLabel>Cheese</IngredientLabel>
-          <Button onClick={() => cheeseDispatch('add')}>+</Button>
-          <Button onClick={() => cheeseDispatch('del')}>-</Button>
-        </IngedientBox>
-        <IngedientBox>
-          <IngredientLabel>Meat</IngredientLabel>
-          <Button onClick={() => meatDispatch('add')}>+</Button>
-          <Button onClick={() => meatDispatch('del')}>-</Button>
-        </IngedientBox>
-        <IngedientBox>
-          <IngredientLabel>Salad</IngredientLabel>
-          <Button onClick={() => saladDispatch('add')}>+</Button>
-          <Button onClick={() => saladDispatch('del')}>-</Button>
-        </IngedientBox>
-        <IngedientBox>
-          <IngredientLabel>Bacon</IngredientLabel>
-          <Button onClick={() => baconDispatch('add')}>+</Button>
-          <Button onClick={() => baconDispatch('del')}>-</Button>
-        </IngedientBox>
-      </BurgerControlBox>
     </>
   );
 }
