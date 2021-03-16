@@ -1,7 +1,5 @@
 import React from 'react';
-import { createGlobalStyle } from 'styled-components';
-import Layout from './components/Layout/Layout';
-import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
+import styled from 'styled-components';
 
 //--------------------------------------------------------------------------------------//
 //                                                                                      //
@@ -9,23 +7,8 @@ import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
 //                                                                                      //
 //--------------------------------------------------------------------------------------//
 
-const GlobalStyle = createGlobalStyle`
-  body {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    background-color: lavender;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-  }
+const Main = styled.main`
+  margin-top: 1rem;
 `;
 
 //--------------------------------------------------------------------------------------//
@@ -34,15 +17,13 @@ const GlobalStyle = createGlobalStyle`
 //                                                                                      //
 //--------------------------------------------------------------------------------------//
 
-function App() {
+function Layout(props) {
   return (
     <>
-      <GlobalStyle />
-      <Layout>
-        <BurgerBuilder />
-      </Layout>
+      <div>Toolbar, SideDrawer, Backdrop</div>
+      <Main>{props.children}</Main>
     </>
   );
 }
 
-export default App;
+export default Layout;
