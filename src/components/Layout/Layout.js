@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Toolbar from '../Navigation/Toolbar/Toolbar';
 
 //--------------------------------------------------------------------------------------//
 //                                                                                      //
@@ -20,7 +21,8 @@ const Main = styled.main`
 function Layout(props) {
   return (
     <>
-      <div>Toolbar, SideDrawer, Backdrop</div>
+      {/* <div>Toolbar, SideDrawer, Backdrop</div> */}
+      <Toolbar />
       <Main>{props.children}</Main>
     </>
   );
