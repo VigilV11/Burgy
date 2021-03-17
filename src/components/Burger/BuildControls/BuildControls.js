@@ -35,15 +35,15 @@ const Button = styled.button`
 function BuildControls({ allIngredientTypes, dispatch }) {
   return (
     <BurgerControlBox>
-      {allIngredientTypes.map((type) => (
+      {allIngredientTypes.map((ing) => (
         <IngedientBoxContainer key={nanoid()}>
           <IngredientLabel>
-            {type[0].toUpperCase() + type.slice(1)}
+            {ing[0].toUpperCase() + ing.slice(1)}
           </IngredientLabel>
-          <Button onClick={() => dispatch({ ingredient: type, type: 'add' })}>
+          <Button onClick={() => dispatch({ ingredient: ing, type: 'add' })}>
             +
           </Button>
-          <Button onClick={() => dispatch({ ingredient: type, type: 'del' })}>
+          <Button onClick={() => dispatch({ ingredient: ing, type: 'del' })}>
             -
           </Button>
         </IngedientBoxContainer>

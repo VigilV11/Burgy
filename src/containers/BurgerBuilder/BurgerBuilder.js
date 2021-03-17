@@ -1,8 +1,10 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useState } from 'react';
 
 import Burger from '../../components/Burger/Burger';
-import BuildControls from '../../components/BuildControls/BuildControls';
-import BurgerCost from '../../components/BurgerCost/BurgerCost';
+import BuildControls from '../../components/Burger/BuildControls/BuildControls';
+import BurgerOrder from '../../components/Burger/BurgerOrder/BurgerOrder';
+import Modal from '../../components/UI/Modal/Modal';
+import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 
 const ALL_INGREDIENT_TYPES = ['cheese', 'meat', 'salad', 'bacon'];
 const INGREDIENT_COST = {
@@ -34,6 +36,8 @@ function BurgerBuilder() {
             }
           : state;
 
+      case 'reset':
+        return intitialState;
       default:
         return state;
     }
@@ -46,10 +50,37 @@ function BurgerBuilder() {
     0
   );
 
+  const [checkout, setCheckout] = useState(false);
+  // const [ordered, setOrdered] = useState(false);
+
+  function checkoutHandler() {
+    setCheckout(!checkout);
+  }
+
+  function orderHandler() {
+    setCheckout(false);
+    dispatch({ type: 'reset' });
+    alert('Order successful');
+  }
+
   return (
     <>
+      {checkout && (
+        <Modal checkoutHandler={checkoutHandler}>
+          <OrderSummary
+            ingredientCount={ingredientCount}
+            cost={cost}
+            checkoutHandler={checkoutHandler}
+            orderHandler={orderHandler}
+          />
+        </Modal>
+      )}
       <Burger ingredientCount={ingredientCount} />
-      <BurgerCost cost={cost} />
+      <BurgerOrder
+        cost={cost}
+        checkoutState={checkout}
+        checkoutHandler={checkoutHandler}
+      />
       <BuildControls
         allIngredientTypes={ALL_INGREDIENT_TYPES}
         dispatch={dispatch}
