@@ -1,38 +1,46 @@
 import React from 'react';
 import styled from 'styled-components';
+import SuccessButton from '../../UI/SuccessButton/SuccessButton';
+import DisabledButton from '../../UI/DisabledButton/DisabledButton';
 
 const BurgerOrderContainer = styled.div`
-  width: 250px;
-  margin: auto;
+  height: 50px;
+  width: 400px;
+  margin: 2% auto;
   display: flex;
   justify-content: space-evenly;
+  align-items: center;
 `;
 
 const CostLabel = styled.h3`
   text-align: center;
-  color: orangered;
+  color: green;
   display: inline-block;
   margin: 2%;
 `;
 
-const OrderButton = styled.button`
-  display: inline-block;
-  background-color: lightseagreen;
-  cursor: pointer;
-  border: 0;
-  border-radius: 4px;
+// const OrderButton = styled.button`
+//   display: inline-block;
+//   background-color: lightgreen;
+//   cursor: pointer;
+//   border: 0;
+//   border-radius: 5px;
+//   width: 70px;
+//   height: 35px;
 
-  &:hover {
-    background-color: green;
-  }
-`;
+//   &:hover {
+//     background-color: green;
+//   }
+// `;
 
 function BurgerOrder({ cost, checkoutState, checkoutHandler }) {
   return (
     <BurgerOrderContainer>
-      <CostLabel>$ {cost.toFixed(2)}</CostLabel>
-      {+cost > 0 && (
-        <OrderButton onClick={checkoutHandler}>Checkout</OrderButton>
+      <CostLabel>Price: $ {cost.toFixed(2)}</CostLabel>
+      {+cost > 0 ? (
+        <SuccessButton clickHandler={checkoutHandler}>Checkout</SuccessButton>
+      ) : (
+        <DisabledButton>Checkout</DisabledButton>
       )}
     </BurgerOrderContainer>
   );

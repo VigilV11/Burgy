@@ -14,12 +14,15 @@ const ModalWindow = styled.div`
   border: 0;
   border-radius: 7px;
   box-shadow: 0 0 12px 8px rgba(255, 255, 155, 0.3);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 function Modal({ children, checkoutHandler }) {
   return (
     <>
-      <Backdrop checkoutHandler={checkoutHandler} />
       <ModalWindow>{children}</ModalWindow>
     </>
   );

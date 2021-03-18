@@ -3,19 +3,60 @@ import React from 'react';
 import styled from 'styled-components';
 
 const OrderSummaryWrapper = styled.div`
-  width: 60%;
-  height: 60%;
+  width: 80%;
+  height: 80%;
   position: relative;
-  top: 20%;
-  left: 20%;
+  /* top: 20%;
+  left: 20%; */
+  /* text-align: center; */
+  /* display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; */
 `;
 
-const Button = styled.button`
-  width: 60px;
-  height: 20px;
+const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+`;
+
+const ButtonOrder = styled.button`
+  width: 80px;
+  height: 30px;
   cursor: pointer;
   /* margin: auto; */
   margin: 5%;
+  border: 0;
+  border-radius: 5px;
+  background-color: olive;
+  font-weight: bold;
+
+  &:hover {
+    background-color: green;
+  }
+`;
+
+const ButtonCancel = styled.button`
+  width: 80px;
+  height: 30px;
+  cursor: pointer;
+  /* margin: auto; */
+  margin: 5%;
+  border: 0;
+  border-radius: 5px;
+  background-color: salmon;
+  font-weight: bold;
+
+  &:hover {
+    background-color: hotpink;
+  }
+`;
+
+const CostLabel = styled.h4`
+  text-align: center;
+  color: green;
+  display: block;
+  margin: 8%;
 `;
 
 function OrderSummary({
@@ -26,8 +67,7 @@ function OrderSummary({
 }) {
   return (
     <OrderSummaryWrapper>
-      <h3>Your Order</h3>
-      <p>Here is the summary:</p>
+      <h4>Your Order summary:</h4>
       <ul>
         {Object.keys(ingredientCount).map((item) => {
           return (
@@ -37,9 +77,11 @@ function OrderSummary({
           );
         })}
       </ul>
-      <h3>${cost.toFixed(2)}</h3>
-      <Button onClick={orderHandler}>Order</Button>
-      <Button onClick={checkoutHandler}>Cancel</Button>
+      <CostLabel>Price: ${cost.toFixed(2)}</CostLabel>
+      <ButtonWrapper>
+        <ButtonOrder onClick={orderHandler}>Order</ButtonOrder>
+        <ButtonCancel onClick={checkoutHandler}>Cancel</ButtonCancel>
+      </ButtonWrapper>
     </OrderSummaryWrapper>
   );
 }

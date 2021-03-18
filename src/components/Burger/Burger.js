@@ -7,27 +7,32 @@ const BurgerImageContainer = styled.div`
   width: 30%;
   height: 250px;
   margin: auto;
-  display: block;
+  /* display: block; */
   overflow: auto;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 
   /* Laptop screens */
-  @media (min-width: 1000px) and (min-height: 700px) {
+  /* @media (min-width: 1000px) and (min-height: 700px) {
     width: 700px;
     height: 600px;
-  }
+  } */
 
   /* Mobile screens */
-  @media (min-width: 500px) and (min-height: 401px) {
+  /* @media (min-width: 500px) and (min-height: 401px) {
     width: 450px;
     height: 400px;
-  }
+  } */
 
   /* Portrait mode */
-  @media (min-width: 500px) and (max-height: 400px) {
+  /* @media (min-width: 500px) and (max-height: 400px) {
     width: 350px;
     height: 300px;
-  }
+  } */
 `;
 
 function Burger({ ingredientCount }) {

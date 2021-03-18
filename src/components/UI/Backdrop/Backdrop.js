@@ -12,8 +12,8 @@ const BackdropWindow = styled.div`
   filter: blur(8px);
 `;
 
-function Backdrop({ checkoutHandler }) {
-  return <BackdropWindow onClick={checkoutHandler} />;
+function Backdrop({ handler }) {
+  return <BackdropWindow onClick={handler} />;
 }
 
 export default Backdrop;
