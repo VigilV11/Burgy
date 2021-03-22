@@ -12,10 +12,15 @@ const MessageWrapper = styled.div`
   display: ${(props) => (props.active ? 'block' : 'none')};
 `;
 
+const Message = styled.p`
+  font-size: 1.1rem;
+  margin: 14% 0;
+`;
+
 function OrderSuccessMessage({ active, orderCompletionHandler }) {
   return (
     <MessageWrapper active={active}>
-      <h4>Please collect your order from the counter</h4>
+      <Message>Please collect your order from the counter</Message>
       <SuccessButton clickHandler={orderCompletionHandler}>OK</SuccessButton>
     </MessageWrapper>
   );

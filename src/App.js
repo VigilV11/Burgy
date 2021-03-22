@@ -2,6 +2,8 @@ import React from 'react';
 import { createGlobalStyle } from 'styled-components';
 import Layout from './components/Layout/Layout';
 import BurgerBuilder from './containers/BurgerBuilder/BurgerBuilder';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import OrdersPage from './components/OrdersPage/OrdersPage';
 
 //--------------------------------------------------------------------------------------//
 //                                                                                      //
@@ -38,9 +40,15 @@ function App() {
   return (
     <>
       <GlobalStyle />
-      <Layout>
-        <BurgerBuilder />
-      </Layout>
+      <BrowserRouter>
+        <Layout>
+          {/* <BurgerBuilder /> */}
+          <Switch>
+            <Route path='/orders' render={OrdersPage} />
+            <Route path='/' component={BurgerBuilder} />
+          </Switch>
+        </Layout>
+      </BrowserRouter>
     </>
   );
 }

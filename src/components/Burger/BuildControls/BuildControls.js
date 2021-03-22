@@ -43,6 +43,7 @@ const Button = styled.button`
   border: 0;
   border-radius: 4px;
   font-size: 1.2rem;
+  cursor: pointer;
   /* text-align: center; */
   /* font-weight: bolder; */
 

@@ -8,6 +8,7 @@ import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import OrderSuccessMessage from '../../components/Burger/OrderSuccessMessage/OrderSuccessMessage';
 import Backdrop from '../../components/UI/Backdrop/Backdrop';
+import userEvent from '@testing-library/user-event';
 
 const ALL_INGREDIENT_TYPES = ['cheese', 'meat', 'salad', 'bacon'];
 const INGREDIENT_COST = {
@@ -16,6 +17,15 @@ const INGREDIENT_COST = {
   salad: 0.4,
   bacon: 0.8,
 };
+let allOrders = []; // All user orders so far. Stored in local storage for use across sessions;
+
+class CreateNewOrder {
+  date = new Date().toLocaleString();
+  constructor(ingredients, cost) {
+    this.ingredients = ingredients;
+    this.cost = cost;
+  }
+}
 
 function BurgerBuilder() {
   const intitialState = ALL_INGREDIENT_TYPES.reduce(
@@ -97,6 +107,21 @@ function BurgerBuilder() {
     setDelayedOrder(false);
     dispatch({ type: 'reset' });
   }
+
+  // Store current order to localStorage
+  useEffect(() => {
+    if (!ordered) return;
+
+    const newOrder = new CreateNewOrder(ingredientCount, cost);
+    console.log(newOrder);
+
+    if (localStorage.allOrders) {
+      allOrders = JSON.parse(localStorage.getItem('allOrders'));
+    }
+
+    allOrders.push(newOrder);
+    localStorage.setItem('allOrders', JSON.stringify(allOrders));
+  }, [ordered, ingredientCount, cost]);
 
   return (
     <>
