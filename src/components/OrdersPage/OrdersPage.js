@@ -46,7 +46,6 @@ function OrdersPage() {
   }
 
   const totalCost = allOrders.reduce((acc, el) => (acc += el.cost), 0);
-  console.log(allOrders);
 
   return allOrders.length === 0 ? (
     <NoOrders>You don't have any previous orders!</NoOrders>
@@ -72,7 +71,7 @@ function OrdersPage() {
           {/* <p> */}
           <div>
             {Object.keys(item.ingredients).map((el) => (
-              <p>
+              <p key={nanoid()}>
                 {el[0].toUpperCase() + el.slice(1)}: {item.ingredients[el]}
               </p>
             ))}

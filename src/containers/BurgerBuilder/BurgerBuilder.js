@@ -113,7 +113,6 @@ function BurgerBuilder() {
     if (!ordered) return;
 
     const newOrder = new CreateNewOrder(ingredientCount, cost);
-    console.log(newOrder);
 
     if (localStorage.allOrders) {
       allOrders = JSON.parse(localStorage.getItem('allOrders'));
