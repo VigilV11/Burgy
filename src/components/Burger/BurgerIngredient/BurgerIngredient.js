@@ -17,7 +17,7 @@ const BreadTop = styled.div`
   position: relative;
   flex-grow: 0 0;
 
-  overflow: auto;
+  overflow: hidden;
 `;
 
 const BreadBottom = styled.div`
